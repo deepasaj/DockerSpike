@@ -7,6 +7,11 @@ RUN yum install -y libaio bc net-tools
 
 RUN rpm -iv http://y-artifactory.dnspam:8080/artifactory/pam-rpm-repo/oracle-xe-11.2.0-1.0.x86_64.rpm
 
-RUN /etc/init.d/oracle-xe configure responseFile=/tmp/oracle.rsp
+ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
+ENV PATH $ORACLE_HOME/bin:$PATH
 
-RUN /etc/init.d/oracle-xe enable
+RUN sed -i -E "s/HOST = [^)]+/HOST = 0.0.0.0/g" $ORACLE_HOME/network/admin/listener.ora && \
+    sed -i -E "s/HOST = [^)]+/HOST = 0.0.0.0/g" $ORACLE_HOME/network/admin/tnsnames.ora && \
+    /etc/init.d/oracle-xe configure responseFile=/tmp/oracle.rsp && \
+    /etc/init.d/oracle-xe enable && \
+    sqlplus -L SYS/sajani@xe as SYSDBA
