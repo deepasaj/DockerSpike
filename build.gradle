@@ -5,9 +5,15 @@ plugins {
 
 repositories {
     jcenter()
+    maven {
+        url 'http://172.16.20.240:8080/artifactory/libs-release-local'
+    }
 }
 
 dependencies {
+    compile 'it.gruppopam.geco_dolly:geco-cloner:1.4.1'
+    compile 'oracle.jdbc.driver:ojdbc6:11.2.0.1'
+
     testCompile 'junit:junit:4.12'
 }
 
