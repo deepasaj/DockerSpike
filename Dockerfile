@@ -21,3 +21,5 @@ RUN sed -i -E "s/HOST = [^)]+/HOST = 0.0.0.0/g" $ORACLE_HOME/network/admin/liste
     /etc/init.d/oracle-xe enable && \
     echo exit | sqlplus -L SYS/sajani@xe as SYSDBA @$assets_path/create_localgrp.sql && \
     java -Doracle.jdbc.timezoneAsRegion=false -jar $assets_path/oracle-all.jar
+
+EXPOSE 1521
